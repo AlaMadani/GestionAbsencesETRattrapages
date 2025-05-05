@@ -1,0 +1,47 @@
+
+<div class="container">
+    <h2>Historique</h2>
+    
+    <!-- Zone des filtres -->
+    <div class="filters">
+      <select [(ngModel)]="selectedClass" name="class">
+        <option *ngFor="let c of classes" [value]="c">{{ c }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedSpec" name="class">
+        <option *ngFor="let s of specs" [value]="s">{{ s }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedGroup" name="class">
+        <option *ngFor="let g of groups" [value]="g">{{ g }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedTeacher" name="class">
+        <option *ngFor="let t of teachers" [value]="t">{{ t }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedLabel" name="class">
+        <option *ngFor="let l of labels" [value]="l">{{ l }}</option>
+      </select>
+    </div>
+    
+    <!-- Liste des éléments épinglés -->
+    <div class="items-list">
+      <div class="item" *ngFor="let item of pinnedItems">
+        <div class="left-icon">
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="content">
+          {{ item.content }}
+        </div>
+        <div class="pin-icon">
+          <img src="/office-push-pin.png">
+        </div>
+      </div>
+    </div>
+
+
+    
+  </div>
+  
+

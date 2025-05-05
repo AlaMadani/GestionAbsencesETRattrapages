@@ -1,0 +1,44 @@
+.history-container {
+  max-width: 1200px; /* Consistent with previous timetable examples */
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between references and cards */
+}
+
+.references {
+  background: #f5f5f5; /* Borrowed from .sidebar in provided CSS */
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd; /* Consistent with provided border styles */
+}
+
+.references h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.references p {
+  margin: 5px 0;
+}
+
+.rattrapage-card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* From provided CSS */
+  width: 100%; /* Ensure full width of parent */
+  box-sizing: border-box; /* Prevent padding from increasing width */
+}
+
+.rattrapage-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 1.1em;
+}
+
+.rattrapage-card p {
+  margin: 5px 0;
+}

@@ -1,0 +1,35 @@
+<div class="absence-request-form">
+  <h2>Déposer une demande d'absence</h2>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="success" class="success">{{ success }}</div>
+
+  <form [formGroup]="absenceForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dateDebut">Date Début</label>
+        <input type="date" id="dateDebut" formControlName="dateDebut" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="seanceDebut">Séance Début</label>
+        <select id="seanceDebut" formControlName="seanceDebut" class="form-control">
+          <option value="" disabled>Sélectionnez une séance</option>
+          <option *ngFor="let seance of seanceOptions" [value]="seance">{{ seance }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dateFin">Date Fin</label>
+        <input type="date" id="dateFin" formControlName="dateFin" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="seanceFin">Séance Fin</label>
+        <select id="seanceFin" formControlName="seanceFin" class="form-control">
+          <option value="" disabled>Sélectionnez une séance</option>
+          <option *ngFor="let seance of seanceOptions" [value]="seance">{{ seance }}</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="absenceForm.invalid || !enseignantId">Envoyer</button>
+  </form>
+</div>

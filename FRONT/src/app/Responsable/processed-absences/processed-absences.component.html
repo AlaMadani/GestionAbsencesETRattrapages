@@ -1,0 +1,43 @@
+<div class="processed-absences">
+  <h2>Historique des absences traitées</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      (ngModelChange)="applySearch()"
+      placeholder="Rechercher par nom ou prénom de l'enseignant"
+    />
+  </div>
+
+  <div *ngIf="loading">Chargement…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && filteredAbsences.length === 0">
+    Aucune absence trouvée.
+  </div>
+
+  <div class="cards" *ngIf="filteredAbsences.length > 0">
+    <div class="card" *ngFor="let abs of filteredAbsences">
+      <h3>{{ abs.prenom }} {{ abs.nom }}</h3>
+      <p><strong>Grade:</strong> {{ abs.grade }}</p>
+      <p>
+        <strong>Période:</strong>
+        {{ abs.date_db | date:'dd/MM/yyyy' }}
+        –
+        {{ abs.date_fin | date:'dd/MM/yyyy' }}
+      </p>
+      <p>
+        <strong>Séances:</strong>
+        {{ abs.seancedb }} → {{ abs.seancefin }}
+      </p>
+      <p>
+        <strong>Nombre d’absences:</strong> {{ abs.nbAbsences }}
+      </p>
+      <p>
+        <strong>Statut:</strong>
+        {{ abs.acceptee === 'oui' ? 'Acceptée' : 'Refusée' }}
+      </p>
+    </div>
+  </div>
+</div>

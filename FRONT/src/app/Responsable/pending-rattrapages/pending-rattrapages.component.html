@@ -1,0 +1,82 @@
+<div class="pending-rattrapages">
+  <h2>Demandes de rattrapages en attente</h2>
+
+  <div class="filters">
+    <select [(ngModel)]="filterClasse" (ngModelChange)="applyFilters(); loadSpecialites()">
+      <option value="">Classe (Tous)</option>
+      <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+    </select>
+    <select [(ngModel)]="filterSpecialite" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!filterClasse">
+      <option value="">Spécialité (Tous)</option>
+      <option *ngFor="let specialite of specialites" [value]="specialite">{{ specialite }}</option>
+    </select>
+    <select [(ngModel)]="filterGroupe" (ngModelChange)="applyFilters()" [disabled]="!filterSpecialite">
+      <option value="">Groupe (Tous)</option>
+      <option *ngFor="let groupe of groupes" [value]="groupe">{{ groupe }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading">Chargement…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && filteredRequests.length === 0">
+    Aucune demande.
+  </div>
+
+  <div class="cards" *ngIf="filteredRequests.length">
+    <div class="card" *ngFor="let req of filteredRequests">
+      <h3>{{ req.prenom }} {{ req.nom }}</h3>
+      <p><strong>Période:</strong>
+         {{ req.date_db | date:'dd/MM/yyyy' }} – {{ req.date_fin | date:'dd/MM/yyyy' }}
+      </p>
+      <p><strong>Classe:</strong> {{ req.classe }} / {{ req.specialite }} / {{ req.groupe }}</p>
+      <p><strong>Grade:</strong> {{ req.grade }}</p>
+      <p><strong>Nombre d'absences:</strong> {{ req.nbAbsences }}</p>
+
+      <div class="dropdowns">
+        <!-- 1) Dates+Séances -->
+        <select
+          name="dateSeance-{{req.id}}"
+          [ngModel]="seancesMap.get(req.id)?.selectedOption"
+          (ngModelChange)="onOptionSelect(req, $event)"
+          (focus)="onLoadSeances(req)"
+        >
+          <option [ngValue]="undefined">— Choisir date & séance —</option>
+          <option
+            *ngFor="let o of seancesMap.get(req.id)?.options"
+            [ngValue]="o">
+            {{ getFrenchDay(o.day) }} séance {{ o.seance }} le {{ o.date }}
+          </option>
+        </select>
+
+        <!-- 2) Salles -->
+        <select
+          name="salleSelect-{{req.id}}"
+          [ngModel]="seancesMap.get(req.id)?.selectedSalle"
+          (ngModelChange)="onSalleSelect(req, $event)"
+          [disabled]="!seancesMap.get(req.id)?.selectedOption"
+        >
+          <option [ngValue]="undefined">— Choisir salle —</option>
+          <option
+            *ngFor="let s of seancesMap.get(req.id)?.salles"
+            [ngValue]="s">
+            {{ s }}
+          </option>
+        </select>
+      </div>
+
+      <div class="button-group">
+        <button
+          class="accept-btn"
+          (click)="onAccept(req)"
+          [disabled]="!seancesMap.get(req.id)?.selectedSalle">
+          Accepter rattrapage
+        </button>
+        <button
+          class="reject-btn"
+          (click)="onReject(req)">
+          Refuser rattrapage
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

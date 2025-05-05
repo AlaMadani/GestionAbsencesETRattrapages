@@ -1,0 +1,35 @@
+<div class="pending-absences">
+    <h2>Demandes d’absences en attente</h2>
+  
+    <div *ngIf="loading">Chargement…</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+  
+    <div *ngIf="!loading && absences.length === 0">
+      Il n’y a aucune demande en attente.
+    </div>
+  
+    <div class="cards" *ngIf="absences.length > 0">
+      <div class="card" *ngFor="let abs of absences">
+        <h3>{{ abs.prenom }} {{ abs.nom }}</h3>
+        <p><strong>Grade:</strong> {{ abs.grade }}</p>
+        <p>
+          <strong>Période:</strong>
+          {{ abs.date_db | date:'dd/MM/yyyy' }}
+          –
+          {{ abs.date_fin | date:'dd/MM/yyyy' }}
+        </p>
+        <p>
+          <strong>Séances:</strong>
+          {{ abs.seancedb }} → {{ abs.seancefin }}
+        </p>
+        <p>
+          <strong>Nombre d’absences:</strong> {{ abs.nbAbsences }}
+        </p>
+        <div class="actions">
+          <button (click)="onRespond(abs, true)">Accepter</button>
+          <button (click)="onRespond(abs, false)">Refuser</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

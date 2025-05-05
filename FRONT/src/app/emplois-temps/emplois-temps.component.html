@@ -1,0 +1,44 @@
+<div class="container">
+  <h2>{{ title }}</h2>
+
+  <div class="filters">
+    <select [(ngModel)]="selectedClass" (ngModelChange)="applyFilters(); loadSpecialites()">
+      <option value="">Classe (Tous)</option>
+      <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+    </select>
+    <select [(ngModel)]="selectedSpec" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!selectedClass">
+      <option value="">Spécialité (Tous)</option>
+      <option *ngFor="let spec of specialites" [value]="spec">{{ spec }}</option>
+    </select>
+    <select [(ngModel)]="selectedGroup" (ngModelChange)="applyFilters()" [disabled]="!selectedSpec">
+      <option value="">Groupe (Tous)</option>
+      <option *ngFor="let group of groupes" [value]="group">{{ group }}</option>
+    </select>
+  </div>
+
+  <div class="timetables">
+    <div *ngFor="let timetable of filteredTimetables" class="timetable">
+      <h3>{{ timetable.classe }} : {{ timetable.specialite }} : {{ timetable.groupe }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Jour</th>
+            <th *ngFor="let seance of seances">{{ seance }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let day of timetable.days">
+            <td>{{ day.jour }}</td>
+            <td *ngFor="let seance of day.seances" [ngClass]="{'rattrapage': isRattrapageTodayOrFuture(seance)}">
+              {{ getSeanceContent(seance) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="filteredTimetables.length === 0" class="no-data">
+    Aucun emploi du temps trouvé.
+  </div>
+</div>

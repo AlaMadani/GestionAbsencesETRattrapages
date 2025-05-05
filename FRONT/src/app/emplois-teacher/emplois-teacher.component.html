@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Votre Emploi du Temps</h2>
+
+  <div *ngIf="loading">Chargement…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && !error">
+    <div class="timetables" *ngIf="timetable.days.length > 0">
+      <div class="timetable">
+        <table>
+          <thead>
+            <tr>
+              <th>Jour</th>
+              <th *ngFor="let seance of seances">{{ seance }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let day of timetable.days">
+              <td>{{ day.jour }}</td>
+              <td *ngFor="let seance of day.seances" [ngClass]="{'rattrapage': seance?.isRattrapage}">
+                {{ getSeanceContent(seance) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="timetable.days.length === 0" class="no-data">
+      Aucun emploi du temps trouvé.
+    </div>
+  </div>
+</div>

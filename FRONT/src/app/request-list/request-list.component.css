@@ -1,0 +1,115 @@
+.request-list {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 60px; /* Space for Windows taskbar */
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above other content */
+  padding: 10px 0; /* Ensure padding for sticky */
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 60px; /* Below h2 */
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above table */
+  padding: 10px 0; /* Ensure padding for sticky */
+}
+
+.filters select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+}
+
+/* Wrap table in a scrollable container */
+.table-container {
+  max-height: calc(100vh - 150px); /* Leave space for h2 + filters + taskbar */
+  overflow-y: auto; /* Scroll table content */
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table {
+  width: 100%; /* Full width of parent */
+  border-collapse: collapse;
+  table-layout: auto; /* Ensure columns adjust to content */
+}
+
+thead {
+  position: sticky;
+  top: 0; /* Sticky within table-container */
+  z-index: 5; /* Below filters but above rows */
+  background: #f4f4f4; /* Ensure background for sticky header */
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+}
+
+tr:hover {
+  background: #f9f9f9;
+}
+
+.expandable {
+  cursor: pointer;
+}
+
+.expandable:hover {
+  background: #e6f3ff;
+}
+
+.details-row {
+  background: #f5f5f5;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.details-content {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.details-content p {
+  margin: 5px 0;
+}
+
+.status-pending {
+  color: #ffa500;
+  font-weight: bold;
+}
+
+.status-accepted {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+td[colspan="4"] {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}

@@ -1,0 +1,14 @@
+<div class="history-container">
+    <div class="references">
+      <h3>Références</h3>
+      <p><strong>Classes:</strong> Spec</p>
+      <p><strong>Groupe:</strong> Status</p>
+      <p><strong>Lundi:</strong></p>
+    </div>
+  
+    <div *ngFor="let rattrapage of rattrapages" class="rattrapage-card">
+      <h4>Rattrappage {{ rattrapage.id }}</h4>
+      <p>{{ rattrapage.startDate  }}-{{ rattrapage.endDate }}</p>
+      <p><strong>Classe {{ rattrapage.class }} :</strong> {{ rattrapage.subject }} : Groupe {{ rattrapage.group }}</p>
+    </div>
+  </div>

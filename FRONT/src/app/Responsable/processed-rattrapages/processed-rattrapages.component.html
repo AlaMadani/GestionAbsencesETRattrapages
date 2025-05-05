@@ -1,0 +1,69 @@
+<div class="processed-rattrapages">
+  <h2>Historique des rattrapages traités</h2>
+
+  <div class="filters">
+    <select [(ngModel)]="filterClasse" (ngModelChange)="applyFilters(); loadSpecialites()">
+      <option value="">Classe (Tous)</option>
+      <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+    </select>
+    <select [(ngModel)]="filterSpecialite" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!filterClasse">
+      <option value="">Spécialité (Tous)</option>
+      <option *ngFor="let specialite of specialites" [value]="specialite">{{ specialite }}</option>
+    </select>
+    <select [(ngModel)]="filterGroupe" (ngModelChange)="applyFilters()" [disabled]="!filterSpecialite">
+      <option value="">Groupe (Tous)</option>
+      <option *ngFor="let groupe of groupes" [value]="groupe">{{ groupe }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading">Chargement…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && filteredRattrapages.length === 0">
+    Aucun rattrapage traité.
+  </div>
+
+  <div class="cards" *ngIf="filteredRattrapages.length > 0">
+    <div class="card" *ngFor="let ratt of filteredRattrapages">
+      <h3>{{ ratt.prenom }} {{ ratt.nom }}</h3>
+      <p><strong>Grade:</strong> {{ ratt.grade }}</p>
+      <p><strong>Numéro de téléphone:</strong> {{ ratt.num_tel }}</p>
+      <p>
+        <strong>Période:</strong>
+        {{ ratt.date_db | date:'dd/MM/yyyy' }}
+        –
+        {{ ratt.date_fin | date:'dd/MM/yyyy' }}
+      </p>
+      <p>
+        <strong>Séances:</strong>
+        {{ ratt.seancedb || 'Non spécifié' }} → {{ ratt.seancefin || 'Non spécifié' }}
+      </p>
+      <p>
+        <strong>Nombre d’absences:</strong> {{ ratt.nbAbsences }}
+      </p>
+      <p>
+        <strong>Statut:</strong>
+        {{ ratt.acceptee === 'oui' ? 'Accepté' : 'Refusé' }}
+      </p>
+      <p>
+        <strong>Date affectée:</strong>
+        {{ ratt.date_aff | date:'dd/MM/yyyy' }}
+      </p>
+      <p>
+        <strong>Séance affectée:</strong> {{ ratt.seanceAff }}
+      </p>
+      <p>
+        <strong>Salle:</strong> {{ ratt.salleId }}
+      </p>
+      <p>
+        <strong>Classe:</strong> {{ ratt.classe }}
+      </p>
+      <p>
+        <strong>Spécialité:</strong> {{ ratt.specialite }}
+      </p>
+      <p>
+        <strong>Groupe:</strong> {{ ratt.groupe }}
+      </p>
+    </div>
+  </div>
+</div>

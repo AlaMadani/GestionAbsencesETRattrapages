@@ -1,0 +1,64 @@
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 60px; /* Space for Windows taskbar */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above other content */
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 60px; /* Below h2 */
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above table */
+}
+
+.filters select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-height: calc(100vh - 150px); /* Leave space for h2 + filters + taskbar */
+  overflow-y: auto; /* Scroll table */
+  display: table; /* Maintain table layout */
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f4f4f4;
+  font-weight: bold;
+}
+
+tr:hover {
+  background: #f9f9f9;
+}
+
+td[colspan="5"] {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}

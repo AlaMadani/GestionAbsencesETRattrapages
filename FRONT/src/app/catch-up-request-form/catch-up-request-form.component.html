@@ -1,0 +1,74 @@
+<div class="rattrapage-request-form">
+  <h2>Déposer une demande de rattrapage</h2>
+  
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="rattrapageForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="dateDebut">Date Début</label>
+        <input type="date" id="dateDebut" formControlName="dateDebut" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('dateDebut')?.invalid && rattrapageForm.get('dateDebut')?.touched}">
+        <div *ngIf="rattrapageForm.get('dateDebut')?.invalid && rattrapageForm.get('dateDebut')?.touched" class="invalid-feedback">
+          La date de début est requise.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="dateFin">Date Fin</label>
+        <input type="date" id="dateFin" formControlName="dateFin" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('dateFin')?.invalid && rattrapageForm.get('dateFin')?.touched}">
+        <div *ngIf="rattrapageForm.get('dateFin')?.invalid && rattrapageForm.get('dateFin')?.touched" class="invalid-feedback">
+          La date de fin est requise.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="classe">Classe</label>
+        <select id="classe" formControlName="classe" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('classe')?.invalid && rattrapageForm.get('classe')?.touched}">
+          <option value="">Sélectionner une classe</option>
+          <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+        </select>
+        <div *ngIf="rattrapageForm.get('classe')?.invalid && rattrapageForm.get('classe')?.touched" class="invalid-feedback">
+          La classe est requise.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="specialite">Spécialité</label>
+        <select id="specialite" formControlName="specialite" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('specialite')?.invalid && rattrapageForm.get('specialite')?.touched}" [disabled]="!classes.length || !rattrapageForm.get('classe')?.value">
+          <option value="">Sélectionner une spécialité</option>
+          <option *ngFor="let specialite of specialites" [value]="specialite">{{ specialite }}</option>
+        </select>
+        <div *ngIf="rattrapageForm.get('specialite')?.invalid && rattrapageForm.get('specialite')?.touched" class="invalid-feedback">
+          La spécialité est requise.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="groupe">Groupe</label>
+        <select id="groupe" formControlName="groupe" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('groupe')?.invalid && rattrapageForm.get('groupe')?.touched}" [disabled]="!specialites.length || !rattrapageForm.get('specialite')?.value">
+          <option value="">Sélectionner un groupe</option>
+          <option *ngFor="let groupe of groupes" [value]="groupe">{{ groupe }}</option>
+        </select>
+        <div *ngIf="rattrapageForm.get('groupe')?.invalid && rattrapageForm.get('groupe')?.touched" class="invalid-feedback">
+          Le groupe est requis.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="matiere">Matière</label>
+        <input type="text" id="matiere" formControlName="matiere" class="form-control" [ngClass]="{'is-invalid': rattrapageForm.get('matiere')?.invalid && rattrapageForm.get('matiere')?.touched}">
+        <div *ngIf="rattrapageForm.get('matiere')?.invalid && rattrapageForm.get('matiere')?.touched" class="invalid-feedback">
+          La matière est requise.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="rattrapageForm.invalid">Envoyer</button>
+  </form>
+</div>

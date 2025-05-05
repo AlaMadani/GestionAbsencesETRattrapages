@@ -1,0 +1,135 @@
+<div class="container">
+    <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <p class="title">Register</p>
+        <p class="message">Signup now and get full access to our app.</p>
+
+        <!-- Success/Error Messages -->
+        <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+        <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+        <!-- Firstname -->
+        <label>
+            <input
+                formControlName="prenom"
+                placeholder=""
+                type="text"
+                class="input"
+                [class.invalid]="signupForm.get('prenom')?.invalid && signupForm.get('prenom')?.touched"
+            />
+            <span>Firstname</span>
+            <span class="error" *ngIf="signupForm.get('prenom')?.hasError('required') && signupForm.get('prenom')?.touched">
+                Firstname is required
+            </span>
+        </label>
+
+        <!-- Lastname -->
+        <label>
+            <input
+                formControlName="nom"
+                placeholder=""
+                type="text"
+                class="input"
+                [class.invalid]="signupForm.get('nom')?.invalid && signupForm.get('nom')?.touched"
+            />
+            <span>Lastname</span>
+            <span class="error" *ngIf="signupForm.get('nom')?.hasError('required') && signupForm.get('nom')?.touched">
+                Lastname is required
+            </span>
+        </label>
+
+        <!-- Email -->
+        <label>
+            <input
+                formControlName="email"
+                placeholder=""
+                type="email"
+                class="input"
+                [class.invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+            />
+            <span>Email</span>
+            <span class="error" *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+                Email is required
+            </span>
+            <span class="error" *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+                Invalid email format
+            </span>
+        </label>
+
+        <!-- Password -->
+        <label>
+            <input
+                formControlName="password"
+                placeholder=""
+                type="password"
+                class="input"
+                [class.invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+            />
+            <span>Password</span>
+            <span class="error" *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+                Password is required
+            </span>
+        </label>
+
+        <!-- Confirm Password -->
+        <label>
+            <input
+                formControlName="confirmPassword"
+                placeholder=""
+                type="password"
+                class="input"
+                [class.invalid]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
+            />
+            <span>Confirm Password</span>
+            <span class="error" *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.touched">
+                Confirm Password is required
+            </span>
+            <span class="error" *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch') && signupForm.get('confirmPassword')?.touched">
+                Passwords do not match
+            </span>
+        </label>
+
+        <!-- User Type -->
+        <label>
+            <select formControlName="userType" class="input">
+                <option value="" disabled>Select User Type</option>
+                <option value="ETUDIANT">Student</option>
+                <option value="ENSEIGNANT">Teacher</option>
+                <option value="ADMIN">Admin</option>
+            </select>
+            <span>User Type</span>
+            <span class="error" *ngIf="signupForm.get('userType')?.hasError('required') && signupForm.get('userType')?.touched">
+                User Type is required
+            </span>
+        </label>
+
+        <!-- Conditional Fields for ENSEIGNANT -->
+        <div *ngIf="signupForm.get('userType')?.value === 'ENSEIGNANT'" class="flex">
+            <!-- Grade -->
+            <label>
+                <input
+                    formControlName="grade"
+                    placeholder=""
+                    type="text"
+                    class="input"
+                />
+                <span>Grade</span>
+            </label>
+
+            <!-- Phone Number -->
+            <label>
+                <input
+                    formControlName="numTel"
+                    placeholder=""
+                    type="text"
+                    class="input"
+                />
+                <span>Phone Number</span>
+            </label>
+        </div>
+
+        <button class="submit" type="submit" [disabled]="signupForm.invalid">Submit</button>
+        <p class="signin">
+            Already have an account? <a href="#" routerLink="/student_login">Signin</a>
+        </p>
+    </form>
+</div>

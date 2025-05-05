@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>{{ title }}</h2>
+
+  <div class="filters">
+    <select [(ngModel)]="selectedClass" (ngModelChange)="applyFilters(); loadSpecialites()">
+      <option value="">Classe (Tous)</option>
+      <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+    </select>
+    <select [(ngModel)]="selectedSpec" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!selectedClass">
+      <option value="">Spécialité (Tous)</option>
+      <option *ngFor="let spec of specialites" [value]="spec">{{ spec }}</option>
+    </select>
+    <select [(ngModel)]="selectedGroup" (ngModelChange)="applyFilters()" [disabled]="!selectedSpec">
+      <option value="">Groupe (Tous)</option>
+      <option *ngFor="let group of groupes" [value]="group">{{ group }}</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Période</th>
+        <th>Séances</th>
+        <th>Enseignant</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let absence of filteredAbsences">
+        <td>{{ getDateRange(absence) }}</td>
+        <td>{{ getSeanceRange(absence) }}</td>
+        <td>{{ getTeacherName(absence) }}</td>
+      </tr>
+      <tr *ngIf="filteredAbsences.length === 0">
+        <td colspan="3">Aucune absence confirmée trouvée.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

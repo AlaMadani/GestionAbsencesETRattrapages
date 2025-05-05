@@ -1,0 +1,30 @@
+<div class="etudiants-list">
+  <h2>Liste des Étudiants Enregistrés</h2>
+
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchName"
+      (ngModelChange)="applySearch()"
+      placeholder="Rechercher par nom ou prénom"
+    />
+  </div>
+
+  <div *ngIf="loading">Chargement…</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && filteredEtudiants.length === 0">
+    Aucun étudiant trouvé.
+  </div>
+
+  <div class="cards" *ngIf="filteredEtudiants.length > 0">
+    <div class="card" *ngFor="let etudiant of filteredEtudiants">
+      <h3>{{ etudiant.prenom }} {{ etudiant.nom }}</h3>
+      <p><strong>ID:</strong> {{ etudiant.id }}</p>
+      <p><strong>Email:</strong> {{ etudiant.email }}</p>
+      <p><strong>Classe:</strong> {{ etudiant.classe }}</p>
+      <p><strong>Spécialité:</strong> {{ etudiant.specialite }}</p>
+      <p><strong>Groupe:</strong> {{ etudiant.groupe }}</p>
+    </div>
+  </div>
+</div>

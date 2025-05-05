@@ -1,0 +1,100 @@
+.logo{
+display:flex;
+flex-direction: row;
+width:100%;
+justify-content: space-evenly;
+height: fit-content;
+
+}
+.img1{
+margin-left: -20%;
+width: 103px;
+height: 139px;
+
+}
+.img2{
+width: 179px;
+height: 109px;
+margin-right: -9%;
+margin-top: 1%;
+}
+.img3{
+    margin-right: -20%;
+    margin-top: 1%;
+width: 250px;
+height: 100px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+
+}
+
+.student{
+
+width: 128px;
+height: 128px;
+
+}
+.choices{
+    margin-top: 10%;
+    display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+
+}
+a{
+    width:25%;
+    height:30%;
+    border-radius: 10px;
+    display: flex;         /* Use flexbox inside buttons */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;     /* Set a fixed minimum height for consistency */
+    cursor: pointer;    
+    background-color:#F4F6F9;
+    padding-right:1%;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    padding-top: 0px;
+    text-align: center;
+  
+}
+.homepage {
+    position: relative;       /* Required for absolute positioning inside */
+    width: 100%;
+    min-height: 100vh;        /* Ensure it fills the viewport */
+    margin: 0;                /* Remove default body margin if needed */
+    padding: 0;
+  }
+
+  .bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    /* Make the image fill the entire parent container */
+    width: 100%;
+    height: 100%;
+    
+    /* Maintain aspect ratio and crop if needed */
+    object-fit: cover;
+    
+    /* Put it behind other content */
+    z-index: -1;
+    
+    /* Adjust opacity if desired */
+    opacity: 0.5;  /* 50% opacity */
+   
+  }
+
+a h1{
+    font-size: 200%;
+}
+
+.content {
+    position: relative; /* Ensures content stays above the .bg-image */
+    z-index: 1;        /* Higher stacking order than the image */
+    /* Add any padding or margins as you like */
+    padding: 2rem;     
+      /* Text color to contrast with the background */
+  }

@@ -1,0 +1,68 @@
+.processed-rattrapages {
+  padding: 1rem;
+  max-width: 1200px; /* Match pending-rattrapages */
+  margin: 0 auto;
+  padding-bottom: 60px; /* Space for Windows taskbar */
+  max-height: 100vh; /* Limit to viewport height */
+  overflow-y: auto; /* Scroll if content overflows */
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above filters and cards */
+  padding: 10px 0; /* Ensure padding for sticky */
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 60px; /* Below h2 */
+  background-color: #F4F6F9; /* Match dashboard background */
+  z-index: 10; /* Above cards */
+  padding: 10px 0; /* Ensure padding for sticky */
+}
+
+.filters select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 150px;
+}
+
+.filters select:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error {
+  color: #c00;
+  margin-bottom: 1rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card h3 {
+  margin-top: 0;
+}

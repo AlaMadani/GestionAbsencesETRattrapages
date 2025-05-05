@@ -1,0 +1,24 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  background-color: #F4F6F9;
+  overflow: hidden; /* Prevent dashboard scrolling */
+}
+
+app-res-slider {
+  width: 300px; /* Consistent with teacher dashboard */
+  height: 100vh;
+  position: fixed; /* Fix sidebar in place */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Above content */
+}
+
+.content {
+  margin-left: 310px; /* Match sidebar width */
+  width: calc(100% - 300px); /* Fill remaining width */
+  height: 100vh;
+  overflow:scroll; /* Prevent content container scrolling */
+}

@@ -1,0 +1,42 @@
+<div class="container">
+    <h2>{{ title }}</h2>
+  
+    <div class="filters">
+      <select [(ngModel)]="selectedClass" (ngModelChange)="applyFilters(); loadSpecialites()">
+        <option value="">Classe (Tous)</option>
+        <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+      </select>
+      <select [(ngModel)]="selectedSpec" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!selectedClass">
+        <option value="">Spécialité (Tous)</option>
+        <option *ngFor="let spec of specialites" [value]="spec">{{ spec }}</option>
+      </select>
+      <select [(ngModel)]="selectedGroup" (ngModelChange)="applyFilters()" [disabled]="!selectedSpec">
+        <option value="">Groupe (Tous)</option>
+        <option *ngFor="let group of groupes" [value]="group">{{ group }}</option>
+      </select>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Classe : Spécialité : Groupe</th>
+          <th>Enseignant</th>
+          <th>Date Affectée</th>
+          <th>Séance</th>
+          <th>Salle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rattrapage of filteredRattrapages">
+          <td>{{ getClassGroup(rattrapage) }}</td>
+          <td>{{ getTeacherName(rattrapage) }}</td>
+          <td>{{ getDateAff(rattrapage) }}</td>
+          <td>{{ rattrapage.seanceAff }}</td>
+          <td>{{ rattrapage.salleId }}</td>
+        </tr>
+        <tr *ngIf="filteredRattrapages.length === 0">
+          <td colspan="5">Aucun rattrapage accepté trouvé.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

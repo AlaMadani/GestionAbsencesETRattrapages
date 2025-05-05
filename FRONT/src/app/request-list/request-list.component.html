@@ -1,0 +1,65 @@
+<div class="request-list">
+  <h2>{{ title }}</h2>
+
+  <div class="filters">
+    <select [(ngModel)]="filterClasse" (ngModelChange)="applyFilters(); loadSpecialites()">
+      <option value="">Classe (Tous)</option>
+      <option *ngFor="let classe of classes" [value]="classe">{{ classe }}</option>
+    </select>
+    <select [(ngModel)]="filterSpecialite" (ngModelChange)="applyFilters(); loadGroupes()" [disabled]="!filterClasse">
+      <option value="">Spécialité (Tous)</option>
+      <option *ngFor="let specialite of specialites" [value]="specialite">{{ specialite }}</option>
+    </select>
+    <select [(ngModel)]="filterGroupe" (ngModelChange)="applyFilters()" [disabled]="!filterSpecialite">
+      <option value="">Groupe (Tous)</option>
+      <option *ngFor="let groupe of groupes" [value]="groupe">{{ groupe }}</option>
+    </select>
+    <select [(ngModel)]="filterStatus" (ngModelChange)="applyFilters()">
+      <option value="">Statut (Tous)</option>
+      <option value="En Attente">En Attente</option>
+      <option value="Acceptée">Acceptée</option>
+      <option value="Refusée">Refusée</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Période</th>
+        <th>Classe : Spécialité : Groupe</th>
+        <th>Statut</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let request of filteredRequests">
+        <tr [class.expandable]="request.acceptee === 'oui'" (click)="request.acceptee === 'oui' && toggleRow(request.id)">
+          <td>{{ request.id }}</td>
+          <td>{{ getDateRange(request) }}</td>
+          <td>{{ getClassGroup(request) }}</td>
+          <td>
+            <span [ngClass]="{
+              'status-pending': getStatus(request.acceptee) === 'En Attente',
+              'status-accepted': getStatus(request.acceptee) === 'Acceptée',
+              'status-rejected': getStatus(request.acceptee) === 'Refusée'
+            }">
+              {{ getStatus(request.acceptee) }}
+            </span>
+          </td>
+        </tr>
+        <tr class="details-row" *ngIf="request.acceptee === 'oui' && isRowExpanded(request.id)">
+          <td colspan="4">
+            <div class="details-content">
+              <p><strong>Date Affectée:</strong> {{ getDateAffectee(request) }}</p>
+              <p><strong>Séance Affectée:</strong> {{ request.seanceAffectee || 'N/A' }}</p>
+              <p><strong>Salle Affectée:</strong> {{ request.salleaff || 'N/A' }}</p>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      <tr *ngIf="filteredRequests.length === 0">
+        <td colspan="4">Aucune demande trouvée.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

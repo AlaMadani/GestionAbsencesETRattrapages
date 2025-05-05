@@ -1,0 +1,24 @@
+.dashboard {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Full viewport height */
+    width: 100%;
+    background-color: #F4F6F9;
+    overflow: hidden; /* Prevent dashboard from scrolling */
+  }
+  
+  app-sidebar-teacher {
+    width: 300px; /* Fixed sidebar width */
+    height: 100vh;
+    position: fixed; /* Fix sidebar in place */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure sidebar is above content */
+  }
+  
+  .content {
+    margin-left: 310px; /* Match sidebar width */
+    width: calc(100% - 300px); /* Fill remaining width */
+    height: 100vh;
+    overflow: hidden; /* Prevent content container from scrolling */
+  }
