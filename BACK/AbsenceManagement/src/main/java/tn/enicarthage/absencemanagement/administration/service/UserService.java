@@ -1,16 +1,20 @@
 package tn.enicarthage.absencemanagement.administration.service;
 
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tn.enicarthage.absencemanagement.etudiants.model.Etudiant;
 import tn.enicarthage.absencemanagement.etudiants.model.User;
 import tn.enicarthage.absencemanagement.enseignants.model.Enseignant;
+import tn.enicarthage.absencemanagement.AppUser;
 import tn.enicarthage.absencemanagement.UserRepository;
 import tn.enicarthage.absencemanagement.administration.model.Admin; // Assumed package
 import tn.enicarthage.absencemanagement.administration.model.SignupRequest;
 
 import jakarta.persistence.EntityExistsException;
+
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
@@ -83,6 +87,17 @@ public class UserService {
      // Hash the password
      String hashedPassword = passwordEncoder.encode(signupRequest.getPassword());
      user.setMotdepass(hashedPassword);
+     
+  // Create AppUser for security context (example)
+     List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + signupRequest.getUserType().name()));
+     AppUser appUser = new AppUser(
+         user.getId(), // Assuming User has an ID after save
+         signupRequest.getEmail(),
+         hashedPassword,
+         signupRequest.getNom(),
+         signupRequest.getPrenom(),
+         authorities
+     );
 
      // Save the user
      return userRepository.save(user);

@@ -7,37 +7,62 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import tn.enicarthage.absencemanagement.administration.model.EtudiantDTO;
 import tn.enicarthage.absencemanagement.administration.repository.StudentRepository;
+import tn.enicarthage.absencemanagement.etudiants.model.Classe;
 import tn.enicarthage.absencemanagement.etudiants.model.Etudiant;
+import tn.enicarthage.absencemanagement.etudiants.model.Groupe;
+import tn.enicarthage.absencemanagement.etudiants.model.Specialite;
+
 @AllArgsConstructor
 @Service
 public class StudentService {
-	 private final StudentRepository studentRepository;
-	 
-	 public List<Etudiant> getAllStudents() {
-	        return studentRepository.findAll();
-	    }
-	 
-	 
-	 public EtudiantDTO findByEmail(String email) {
-	        Etudiant etudiant = studentRepository.findByEmail(email)
-	                .orElse(null);
-	        if (etudiant == null) {
-	            return null;
-	        }
-	        return toDTO(etudiant);
-	    }
+    private final StudentRepository studentRepository;
+    
+    public List<Etudiant> getAllStudents() {
+        return studentRepository.findAll();
+    }
+    
+    public EtudiantDTO findByEmail(String email) {
+        Etudiant etudiant = studentRepository.findByEmail(email)
+                .orElse(null);
+        if (etudiant == null) {
+            return null;
+        }
+        return toDTO(etudiant);
+    }
 
-	    private EtudiantDTO toDTO(Etudiant etudiant) {
-	        return new EtudiantDTO(
-	                etudiant.getId(),
-	                etudiant.getNom(),
-	                etudiant.getPrenom(),
-	                etudiant.getEmail(),
-	                etudiant.getMotdepass(),
-	                etudiant.getClasse(),
-	                etudiant.getSpecialite(),
-	                etudiant.getGroupe()
-	        );
-	    }
-	 
+    public Etudiant getStudentById(Long id) {
+        return studentRepository.findById(id)
+                .orElse(null);
+    }
+
+    
+    public Etudiant updateStudentDetails(Long id, Classe classe, Specialite specialite, Groupe groupe) {
+        Etudiant etudiant = studentRepository.findById(id)
+                .orElse(null);
+        if (etudiant == null) {
+            return null;
+        }
+        if (classe != null) {
+            etudiant.setClasse(classe);
+        }
+        if (specialite != null) {
+            etudiant.setSpecialite(specialite);
+        }
+        if (groupe != null) {
+            etudiant.setGroupe(groupe);
+        }
+        return studentRepository.save(etudiant);
+    }
+    private EtudiantDTO toDTO(Etudiant etudiant) {
+        return new EtudiantDTO(
+                etudiant.getId(),
+                etudiant.getNom(),
+                etudiant.getPrenom(),
+                etudiant.getEmail(),
+                etudiant.getMotdepass(),
+                etudiant.getClasse(),
+                etudiant.getSpecialite(),
+                etudiant.getGroupe()
+        );
+    }
 }

@@ -10,19 +10,39 @@ public class AppUser implements UserDetails {
     private Long id; // User ID (e.g., enseignantId)
     private String username;
     private String password;
+    private String nom; // Added
+    private String prenom; // Added
     private List<SimpleGrantedAuthority> authorities;
 
     // Constructor
-    public AppUser(Long id, String username, String password, List<SimpleGrantedAuthority> authorities) {
+    public AppUser(Long id, String username, String password, String nom, String prenom, List<SimpleGrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.nom = nom;
+        this.prenom = prenom;
         this.authorities = authorities;
     }
 
     // Getters and Setters
     public Long getId() {
         return id;
+    }
+
+    public String getNom() { // Added getter
+        return nom;
+    }
+
+    public String getPrenom() { // Added getter
+        return prenom;
+    }
+
+    public void setNom(String nom) { // Added setter
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) { // Added setter
+        this.prenom = prenom;
     }
 
     @Override

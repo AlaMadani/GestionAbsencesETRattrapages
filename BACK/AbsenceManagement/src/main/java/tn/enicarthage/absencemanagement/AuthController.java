@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tn.enicarthage.absencemanagement.administration.service.EnseignantService;
-
 import tn.enicarthage.absencemanagement.administration.service.StudentService;
 import tn.enicarthage.absencemanagement.administration.model.EnseignantDTO;
 import tn.enicarthage.absencemanagement.administration.model.EtudiantDTO;
@@ -25,7 +24,7 @@ public class AuthController {
     private final EnseignantService enseignantService;
     private final StudentService etudiantService;
 
-    public AuthController(EnseignantService enseignantService,  StudentService etudiantService) {
+    public AuthController(EnseignantService enseignantService, StudentService etudiantService) {
         this.enseignantService = enseignantService;
         this.etudiantService = etudiantService;
     }
@@ -41,31 +40,42 @@ public class AuthController {
                                .toList();
 
         Long id = null;
+        String nom = null;
+        String prenom = null;
+
         if (user instanceof AppUser appUser) {
             id = appUser.getId();
+            nom = appUser.getNom();
+            prenom = appUser.getPrenom();
         } else {
-            // Fallback for specific roles
+            // Fallback for non-AppUser principals (e.g., custom UserDetails)
             if (roles.contains("ROLE_ENSEIGNANT")) {
                 EnseignantDTO enseignant = enseignantService.findByEmail(user.getUsername());
                 if (enseignant != null) {
                     id = enseignant.getId();
+                    nom = enseignant.getNom();
+                    prenom = enseignant.getPrenom();
                 }
             } else if (roles.contains("ROLE_ETUDIANT")) {
                 EtudiantDTO etudiant = etudiantService.findByEmail(user.getUsername());
                 if (etudiant != null) {
                     id = etudiant.getId();
+                    nom = etudiant.getNom();
+                    prenom = etudiant.getPrenom();
                 }
             }
         }
 
-        if (id == null) {
+        if (id == null || nom == null || prenom == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                                 .body(Map.of("error", "User ID not found"));
+                                 .body(Map.of("error", "User details not found"));
         }
 
         return ResponseEntity.ok(Map.of(
             "roles", roles,
-            "id", id
+            "id", id,
+            "nom", nom,
+            "prenom", prenom
         ));
     }
 }

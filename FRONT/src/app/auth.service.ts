@@ -6,9 +6,13 @@ import { BehaviorSubject, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _role$ = new BehaviorSubject<string | null>(null);
-  private _userId$ = new BehaviorSubject<number | null>(null); // Store user ID
+  private _userId$ = new BehaviorSubject<number | null>(null);
+  private _nom$ = new BehaviorSubject<string | null>(null); // New for nom
+  private _prenom$ = new BehaviorSubject<string | null>(null); // New for prenom
   readonly role$ = this._role$.asObservable();
-  readonly userId$ = this._userId$.asObservable(); // Expose user ID
+  readonly userId$ = this._userId$.asObservable();
+  readonly nom$ = this._nom$.asObservable(); // Expose nom
+  readonly prenom$ = this._prenom$.asObservable(); // Expose prenom
 
   constructor(private http: HttpClient) {}
 
@@ -35,13 +39,15 @@ export class AuthService {
   }
   
   fetchProfile() {
-    return this.http.get<{ roles: string[], id: number }>('/api/auth/me', {
+    return this.http.get<{ roles: string[], id: number, nom: string, prenom: string }>('/api/auth/me', {
       withCredentials: true
     }).pipe(
       tap(profile => {
         const role = profile.roles[0]?.replace('ROLE_', '') || null;
         this._role$.next(role);
-        this._userId$.next(profile.id); // Store enseignantId
+        this._userId$.next(profile.id);
+        this._nom$.next(profile.nom); // Set nom
+        this._prenom$.next(profile.prenom); // Set prenom
       })
     );
   }
@@ -52,7 +58,9 @@ export class AuthService {
     }).pipe(
       tap(() => {
         this._role$.next(null);
-        this._userId$.next(null); // Clear user ID
+        this._userId$.next(null);
+        this._nom$.next(null); // Clear nom
+        this._prenom$.next(null); // Clear prenom
       })
     );
   }
@@ -63,5 +71,13 @@ export class AuthService {
 
   get userId(): number | null {
     return this._userId$.value;
+  }
+
+  get nom(): string | null {
+    return this._nom$.value;
+  }
+
+  get prenom(): string | null {
+    return this._prenom$.value;
   }
 }

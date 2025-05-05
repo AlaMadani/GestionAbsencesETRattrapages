@@ -255,7 +255,7 @@ export class EmploisTempsComponent implements OnInit {
 
   getSeanceContent(seance: SeanceDTO | null): string {
     if (!seance) return '';
-    return `${seance.matiere}\n${seance.enseignantNom} ${seance.enseignantPrenom}\n${seance.salleNumero}`;
+    return `${seance.matiere}\n${seance.enseignantPrenom} ${seance.enseignantNom} \n${seance.salleNumero}`;
   }
 
   isRattrapageTodayOrFuture(seance: SeanceDTO | null): boolean {

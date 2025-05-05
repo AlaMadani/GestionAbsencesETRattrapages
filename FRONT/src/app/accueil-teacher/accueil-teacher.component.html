@@ -1,1 +1,34 @@
-
+<div class="container">
+    <h2>Rattrapages et Absences Imminents</h2>
+  
+    <div class="content">
+      <div class="rattrapages-section">
+        <h3>Rattrapages Imminents</h3>
+        <div class="items-list">
+          <div class="item" *ngFor="let rattrapage of imminentRattrapages">
+            <div class="content">
+              <p><strong>Date Affectée:</strong> {{ getDateAffectee(rattrapage) }}</p>
+              <p><strong>Période:</strong> {{ getDateRange(rattrapage) }}</p>
+              <p><strong>Séance:</strong> {{ rattrapage.seanceAffectee || 'N/A' }}</p>
+              <p><strong>Salle:</strong> {{ rattrapage.salleaff || 'N/A' }}</p>
+              <p><strong>Classe:</strong> {{ getClassGroup(rattrapage) }}</p>
+            </div>
+          </div>
+          <p *ngIf="imminentRattrapages.length === 0">Aucun rattrapage imminent.</p>
+        </div>
+      </div>
+  
+      <div class="absences-section">
+        <h3>Absences Imminentes</h3>
+        <div class="items-list">
+          <div class="item" *ngFor="let absence of imminentAbsences">
+            <div class="content">
+              <p><strong>Période:</strong> {{ getAbsenceDateRange(absence) }}</p>
+              <p><strong>Séances:</strong> {{ getSeanceRange(absence) }}</p>
+            </div>
+          </div>
+          <p *ngIf="imminentAbsences.length === 0">Aucune absence imminente.</p>
+        </div>
+      </div>
+    </div>
+  </div>

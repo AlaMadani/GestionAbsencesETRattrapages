@@ -30,6 +30,8 @@ public class AppUserDetailsService implements UserDetailsService {
                 user.getId(),
                 user.getEmail(),
                 user.getMotdepass(),
+                user.getNom(),
+                user.getPrenom(),
                 authorities
         );
     }

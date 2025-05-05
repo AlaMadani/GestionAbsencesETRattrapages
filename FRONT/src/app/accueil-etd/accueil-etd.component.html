@@ -1,83 +1,41 @@
 <div class="container">
-    <h2>Rattrapages et Absences épinglées</h2>
-    
-    <!-- Zone des filtres -->
-    <div class="filters">
-      <select [(ngModel)]="selectedClass" name="class">
-        <option *ngFor="let c of classes" [value]="c">{{ c }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedSpec" name="class">
-        <option *ngFor="let s of specs" [value]="s">{{ s }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedGroup" name="class">
-        <option *ngFor="let g of groups" [value]="g">{{ g }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedTeacher" name="class">
-        <option *ngFor="let t of teachers" [value]="t">{{ t }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedLabel" name="class">
-        <option *ngFor="let l of labels" [value]="l">{{ l }}</option>
-      </select>
-    </div>
-    
-    <!-- Liste des éléments épinglés -->
-    <div class="items-list">
-      <div class="item" *ngFor="let item of pinnedItems">
-        <div class="left-icon">
-          <i class="fa fa-user"></i>
+  <h2>Rattrapages et Absences Imminents</h2>
+
+  <div class="content" *ngIf="studentDetails; else configMessage">
+    <div class="rattrapages-section">
+      <h3>Rattrapages Imminents</h3>
+      <div class="items-list">
+        <div class="item" *ngFor="let rattrapage of imminentRattrapages">
+          <div class="content">
+            <p><strong>Enseignant:</strong> {{ getTeacherName(rattrapage) }}</p>
+            <p><strong>Date:</strong> {{ getDateAff(rattrapage) }}</p>
+            <p><strong>Seance:</strong> {{ rattrapage.seanceAff }}</p>
+            <p><strong>Salle:</strong> {{ rattrapage.salleId }}</p>
+            <p><strong>Classe:</strong> {{ getClassGroup(rattrapage) }}</p>
+          </div>
         </div>
-        <div class="content">
-          {{ item.content }}
-        </div>
-        <div class="pin-icon">
-          <img src="/office-push-pin.png">
-        </div>
+        <p *ngIf="imminentRattrapages.length === 0">Aucun rattrapage imminent.</p>
       </div>
     </div>
 
-
-    <h2>Rattrapages et Absences imminents</h2>
-    
-    <!-- Zone des filtres -->
-    <div class="filters">
-      <select [(ngModel)]="selectedClass" name="class">
-        <option *ngFor="let c of classes" [value]="c">{{ c }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedSpec" name="class">
-        <option *ngFor="let s of specs" [value]="s">{{ s }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedGroup" name="class">
-        <option *ngFor="let g of groups" [value]="g">{{ g }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedTeacher" name="class">
-        <option *ngFor="let t of teachers" [value]="t">{{ t }}</option>
-      </select>
-  
-      <select [(ngModel)]="selectedLabel" name="class">
-        <option *ngFor="let l of labels" [value]="l">{{ l }}</option>
-      </select>
-    </div>
-    
-    <!-- Liste des éléments épinglés -->
-    <div class="items-list">
-      <div class="item" *ngFor="let item of pinnedItems">
-        <div class="left-icon">
-          <i class="fa fa-user"></i>
+    <div class="absences-section">
+      <h3>Absences Imminentes</h3>
+      <div class="items-list">
+        <div class="item" *ngFor="let absence of imminentAbsences">
+          <div class="content">
+            <p><strong>Enseignant:</strong> {{ getTeacherNameAbsence(absence) }}</p>
+            <p><strong>Dates:</strong> {{ getDateRange(absence) }}</p>
+            <p><strong>Seances:</strong> {{ getSeanceRange(absence) }}</p>
+          </div>
         </div>
-        <div class="content">
-          {{ item.content }}
-        </div>
-        <div class="pin-icon">
-          <img src="/office-push-pin.png">
-        </div>
+        <p *ngIf="imminentAbsences.length === 0">Aucune absence imminente.</p>
       </div>
     </div>
   </div>
-  
+
+  <ng-template #configMessage>
+    <p class="config-message">
+      Il faut configurer les options par défaut pour recevoir les absences et rattrapages imminents qui vous concernent.
+    </p>
+  </ng-template>
+</div>

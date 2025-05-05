@@ -60,7 +60,7 @@ export class AbsenceRequestFormComponent implements OnInit {
         next: (id) => {
           this.success = `Demande d'absence soumise avec succès (ID: ${id})`;
           this.absenceForm.reset();
-          setTimeout(() => this.router.navigate(['/teacher_dashboard/teacher-demande']), 2000); // Redirect to requests list
+          setTimeout(() => this.router.navigate(['/teacher_dashboard/teacher-historique']), 2000); // Redirect to requests list
         },
         error: (err) => {
           this.error = 'Échec de la soumission de la demande. Veuillez réessayer.';
