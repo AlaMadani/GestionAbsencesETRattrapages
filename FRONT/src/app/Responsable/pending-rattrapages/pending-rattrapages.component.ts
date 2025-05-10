@@ -38,6 +38,7 @@ export class PendingRattrapagesComponent implements OnInit {
       selectedOption?: { date: string; day: string; seance: number };
       salles?: string[];
       selectedSalle?: string;
+      loading?: boolean;
     }
   >();
 
@@ -222,6 +223,8 @@ export class PendingRattrapagesComponent implements OnInit {
 
   onAccept(req: RattrapageRequest) {
     const entry = this.seancesMap.get(req.id)!;
+    entry.loading = true;
+    this.seancesMap.set(req.id, entry);
     const opt = entry.selectedOption!;
     const payload: AccepterRattrapageRequest = {
       rattrapageId: req.id,
@@ -249,6 +252,8 @@ export class PendingRattrapagesComponent implements OnInit {
           message: err.error?.message,
           error: err
         });
+        entry.loading = false; // Reset loading on error
+        this.seancesMap.set(req.id, entry);
       }
     });
   }

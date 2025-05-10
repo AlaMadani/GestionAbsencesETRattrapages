@@ -24,6 +24,10 @@
 
   <div class="cards" *ngIf="filteredRequests.length">
     <div class="card" *ngFor="let req of filteredRequests">
+      <div class="loading-overlay" *ngIf="seancesMap.get(req.id)?.loading">
+        <div class="spinner"></div>
+        <span>En cours de traitement...</span>
+      </div>
       <h3>{{ req.prenom }} {{ req.nom }}</h3>
       <p><strong>Période:</strong>
          {{ req.date_db | date:'dd/MM/yyyy' }} – {{ req.date_fin | date:'dd/MM/yyyy' }}
@@ -68,12 +72,13 @@
         <button
           class="accept-btn"
           (click)="onAccept(req)"
-          [disabled]="!seancesMap.get(req.id)?.selectedSalle">
+          [disabled]="!seancesMap.get(req.id)?.selectedSalle || seancesMap.get(req.id)?.loading">
           Accepter rattrapage
         </button>
         <button
           class="reject-btn"
-          (click)="onReject(req)">
+          (click)="onReject(req)"
+          [disabled]="seancesMap.get(req.id)?.loading">
           Refuser rattrapage
         </button>
       </div>

@@ -2,24 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';  
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,    
-  imports: [                         // <–– bring modules in
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule
-  ],
-  templateUrl: 'login.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form!: FormGroup;       // declare without initializing
-  error: string|null = null;
+  form!: FormGroup;
+  error: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -28,15 +23,16 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // now fb is initialized by Angular, safe to use
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
-  
+
   submit() {
-    if (this.form.invalid) { return; }
+    if (this.form.invalid) {
+      return;
+    }
 
     const { email, password } = this.form.value;
     this.auth.login(email, password).subscribe({

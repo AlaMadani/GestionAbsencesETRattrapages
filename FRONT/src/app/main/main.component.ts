@@ -1,12 +1,15 @@
-import { RouterLink} from '@angular/router';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-main',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, LoginComponent, SignupComponent],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-
+  showSignup = false;
 }

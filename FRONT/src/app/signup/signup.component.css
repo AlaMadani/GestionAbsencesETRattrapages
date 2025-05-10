@@ -1,171 +1,117 @@
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 350px; /* Fixed width to prevent shrinking */
-  min-height: 500px; /* Minimum height to handle conditional fields */
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  position: relative;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.title {
-  font-size: 28px;
-  color: royalblue;
+.form-title {
+  font-size: 2rem;
   font-weight: 600;
-  letter-spacing: -1px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-left: 30px;
-}
-
-.title::before,
-.title::after {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  left: 0px;
-  background-color: royalblue;
-}
-
-.title::before {
-  width: 18px;
-  height: 18px;
-  background-color: royalblue;
-}
-
-.title::after {
-  width: 18px;
-  height: 18px;
-  animation: pulse 1s linear infinite;
-}
-
-.message,
-.signin {
-  color: rgba(88, 87, 87, 0.822);
-  font-size: 14px;
-}
-
-.signin {
   text-align: center;
+  color: #fff;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
-.signin a {
-  color: royalblue;
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
 }
 
-.signin a:hover {
-  text-decoration: underline royalblue;
+.input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  font-size: 1rem;
+  color: #000000;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  outline: none;
+  backdrop-filter: blur(5px);
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.input-container .icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.input-container .icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 40px;
+  background: url('data:image/svg+xml;utf8,<svg fill="rgba(255,255,255,0.7)" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+  background-size: 20px;
+}
+
+.error-container {
+  margin-top: 5px;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.success {
+  color: #28a745;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .flex {
   display: flex;
-  width: 100%;
-  gap: 6px;
-  min-height: 60px; /* Minimum height to stabilize layout */
-}
-
-.form label {
-  position: relative;
-  width: 100%; /* Ensure labels take full width */
-}
-
-.form label .input,
-.form label select {
-  width: 100%; /* Uniform width for all inputs and select */
-  padding: 10px 0px 20px 0px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-  box-sizing: border-box; /* Include padding in width calculation */
-}
-
-.form label .input + span,
-.form label select + span {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.form label .input:placeholder-shown + span,
-.form label select:placeholder-shown + span {
-  top: 15px;
-  font-size: 0.9em;
-}
-
-.form label .input:focus + span,
-.form label .input:valid + span,
-.form label select:focus + span,
-.form label select:valid + span {
-  top: 30px;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.form label .input:valid + span,
-.form label select:valid + span {
-  color: green;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .submit {
-  border: none;
-  outline: none;
-  background-color: royalblue;
-  padding: 10px;
-  border-radius: 10px;
+  width: 100%;
+  padding: 12px;
+  background: #1a2a44;
   color: #fff;
-  font-size: 16px;
-  transform: 0.3s ease;
-  width: 100%; /* Full width button */
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
 
 .submit:hover {
-  background-color: rgb(56, 90, 194);
+  background: #2b3a55;
 }
 
-@keyframes pulse {
-  from {
-      transform: scale(0.9);
-      opacity: 1;
-  }
-  to {
-      transform: scale(1.8);
-      opacity: 0;
-  }
+.submit:disabled {
+  background: #1a2a44;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-/* Additional Styles for Error/Success Messages */
-.success {
-  color: #28a745;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.error {
-  color: #ff0000;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-  display: block;
-}
-
-/* Ensure conditional fields don't disrupt layout */
-.form .flex[style*="display: flex"] {
-  flex-wrap: wrap; /* Allow wrapping if content exceeds */
-  align-items: flex-start; /* Align items at the top */
+.form-footer-spacer {
+  height: 20px;
 }

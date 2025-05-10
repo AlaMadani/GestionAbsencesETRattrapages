@@ -28,7 +28,7 @@ import { AcceptedRattrapagesComponent } from './accepted-rattrapages/accepted-ra
 
 export const routes: Routes = [
   { path: 'home', component: MainComponent },
-  { path: '', redirectTo: 'student_login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'student_login', component: LoginComponent },
   { path: 'student_signup', component: SignupComponent },
 

@@ -1,73 +1,57 @@
-<div class="container">
-	<img src="https://lh3.googleusercontent.com/p/AF1QipM8B8CU8nR_-QFGYX2Y0ZZ67hemtlsSmj2g30e5=s1360-w1360-h1020" alt="Some description" class="bg-image">
+<div class="form">
+  <p class="form-title">Sign In</p>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="input-container">
+      <input
+        class="input"
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+      />
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </span>
+      <div class="error-container">
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+          Please enter a valid email.
+        </div>
+      </div>
+    </div>
 
-	<form class="form" [formGroup]="form" (ngSubmit)="submit()">
-	  <p class="form-title">Sign in to your account</p>
-  
-	  <div class="input-container">
-		<input
-		  class="input"
-		  placeholder="Enter email"
-		  type="email"
-		  formControlName="email"
-		/>
-		<span>
-		  <!-- SVG icon -->
-		</span>
-		<div class="error-container">
-		  <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-			   class="error">
-			Please enter a valid email.
-		  </div>
-		</div>
-	  </div>
-  
-	  <div class="input-container">
-		<input
-		  class="input"
-		  placeholder="Enter password"
-		  type="password"
-		  formControlName="password"
-		/>
-		<span>
-		  <!-- SVG icon -->
-		</span>
-		<div class="error-container">
-		  <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-			   class="error">
-			Password is required.
-		  </div>
-		</div>
-	  </div>
-  
-	  <button class="submit" type="submit" [disabled]="form.invalid">
-		Sign in
-	  </button>
-  
-	  <div *ngIf="error" class="error">{{ error }}</div>
-  
-	  <p class="signup-link">
-		No account ?
-		<a routerLink="/student_signup">Sign up</a>
-	  </p>
+    <div class="input-container">
+      <input
+        class="input"
+        placeholder="Password"
+        type="password"
+        formControlName="password"
+      />
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </span>
+      <div class="error-container">
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="error">
+          Password is required.
+        </div>
+      </div>
+    </div>
 
+    <div class="forgot-password">
+      <a routerLink="/forgot-password">Forgot Password?</a>
+    </div>
 
+    <button class="submit" type="submit" [disabled]="form.invalid">
+      Sign In
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
 
-	</form>
-
-	<div class="back-to-home">
-		
-		<button class="Btn">
-			<div class="text" routerLink="/home">
-			<div class="sign">
-				<svg viewBox="0 0 521 521">
-				<path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg>
-			</div>
-			Retour 
-		</div>
-		  </button>
-		
-	</div>
-
-  </div>
-  
+    <div *ngIf="error" class="error">{{ error }}</div>
+  </form>
+</div>

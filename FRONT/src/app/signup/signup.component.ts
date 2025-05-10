@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, HttpClientModule,CommonModule],
+  imports: [ReactiveFormsModule, HttpClientModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
@@ -31,12 +30,11 @@ export class SignupComponent implements OnInit {
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       userType: ['', Validators.required],
-      grade: [''], // Optional for ENSEIGNANT
-      numTel: [''] // Optional for ENSEIGNANT
+      grade: [''],
+      numTel: ['']
     }, { validators: this.passwordMatchValidator });
   }
 
-  // Custom validator to check if passwords match
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
@@ -65,9 +63,8 @@ export class SignupComponent implements OnInit {
         next: (response) => {
           this.successMessage = response;
           this.errorMessage = null;
-          // Optionally redirect after a delay
           setTimeout(() => {
-            this.router.navigate(['/student_login']);
+            this.router.navigate(['/']);
           }, 2000);
         },
         error: (error) => {
